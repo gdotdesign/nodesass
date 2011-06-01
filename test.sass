@@ -1,0 +1,25 @@
+$asd: 20px
+$prefix: blender
+$color: blue
+
+
+=border-radius()
+  :border-radius 20px
+  :-webkit-border-radius 20px
+
+.#{$prefix}-basic
+  :color blue
+.basic  
+  +border-radius()
+  :color orange
+  h4
+    :border 1px solid black
+body
+  +border-radius()
+  :background-color $color
+  :font-size $asd
+  :color black
+  h1
+    :font-size 30px
+    p
+      :color white
