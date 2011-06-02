@@ -2,9 +2,28 @@ fs = require 'fs'
 sys = require 'sys'
 require 'mootools'
 coffee = require 'coffee-script'
+require './lib/mootoolsColor'
 sasscompile = exports
 
 Compressed = false
+
+class List
+  constructor: ->
+  
+List.from = ->
+  @
+
+class Unit
+  constructor: (unit) ->
+    m = unit.match TypeGrammar.unit.regexp
+    @number = Number.from unit
+    @type = m[2]
+  toString: ->
+    @number + @type
+Unit.from = (unit) ->
+  new Unit(unit)
+Color.from = (type) ->
+  new Color(type)
 
 Grammar =
   variable:
@@ -26,9 +45,52 @@ Grammar =
     regexp: /(.*)/
     scope: true
 
+TypeGrammar =
+  hex:
+    regexp: /^#?[0-9A-Fa-f]{3,6}$/
+    type: Color
+  rgb:
+    regexp: /^rgb\((.*)\)/
+    type: Color
+  rgba:
+    regexp: /^rgba\((.*)\)/
+    type: Color
+  hsl:
+    regexp: /^hsl\((.*)\)/
+    type: Color
+  hsla:
+    regexp: /^hsla\((.*)\)/
+    type: Color
+  unit:
+    regexp: /^[-\d]?(\d{1,10})(\S*)$/
+    type: Unit
+  url:
+    regexp: /^url\([\s\S]*\)$/
+    type: String
+  list:
+    regexp: /(\S*\s){1,10}\S*/
+    type: List
+  text:
+    regexp: /(.*)/
+    type: String
+  
+###
+OperationGrammar =
+  addition:
+  subtraction:
+  division:
+  multiplication:
+###
+
 end = ->
   if Compressed then "" else "\n"
 
+class Property
+  constructor: (name, value)->
+    @name = name
+    @value = value
+  toString: ->
+    @name + ": " + @value.toString() + end()
 class Selector 
   constructor: (name, indent) ->
     @basename = name
@@ -38,7 +100,7 @@ class Selector
     @props = []
   extend: (selector) ->
     @extends.push selector
-  to_s: ->
+  toString: ->
     x = (if @extends.length > 0 then ", " else "" ) + @extends.join ', '
     m =  @basename + x 
     m += @to_p()
@@ -48,8 +110,10 @@ class Selector
       Object.merge @props, mixin.block.props
     for k,v of @props
       if typeof v isnt "function"
-        m += k + ": " + v + end()
+        m += v.toString()
+        #m += k + ": " + v + end()
     m += "}"+end()
+    
 class Mixin
   constructor: (name, args) ->
     @basename = name
@@ -60,6 +124,7 @@ class Mixin
     
   to_s: ->
     ""
+    
 class Replacer
   constructor: ->
     @identRegexp = /(\s*)/
@@ -94,22 +159,44 @@ class Replacer
             @[key].apply @, args
             break
     true
+  
+  # Variable
   variable: (name,value,indent) ->
     @vars[name] = value
+  
+  # Mixin 
   mixin: (name,args,indent)->
     @is[indent] = name
     @blocks[name] = new Mixin name, args
+    
+  # extend
   extend: (selector,indent) ->
     @blocks[selector].extend @is[indent-2]
+    
+  #mixin the mixin
   mix: (name, args, indent)->
     @blocks[@is[indent-2]].mixins.push {
       block: @blocks[name]
       args: args
     }
+  
+  #property
   property: (name, value, indent) ->
-    if a = value.match /^\$(.*)$/
-      value = @vars[a[1]]
-    @blocks[@is[indent-2]].props[name] = value
+    # replace variables and warn / skip on error
+    if value.test /\$\w*/g
+      value = value.replace /\$(\w*)/g, =>
+        if @vars[arguments[1]] is undefined
+          console.warn "Error no variable named #{arguments[1]}"
+          return false
+        @vars[arguments[1]]
+    # TODO operations at this point
+    for k, val of TypeGrammar
+      if value.trim().test val.regexp
+        value = val.type.from value
+        break
+    @blocks[@is[indent-2]].props[name] = new Property name,value
+    
+  # selector
   selector: (name, indent) ->
     merged = ""
     if indent isnt 0
@@ -122,12 +209,14 @@ class Replacer
     @is[indent] = merged
     sel = new Selector merged, indent
     @blocks[merged] = sel
+  
+  # compile
   compile: (text) ->
     if @parse text
       m = ""
       for selector, body of @blocks
         if typeof body isnt "function"
-          m += body.to_s()
+          m += body.toString()
       m  
 test = fs.readFileSync 'test.sass', 'utf-8'
 rep = new Replacer
