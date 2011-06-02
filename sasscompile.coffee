@@ -3,21 +3,28 @@ sys = require 'sys'
 require 'mootools'
 coffee = require 'coffee-script'
 sasscompile = exports
+
 Compressed = false
 
 Grammar =
   variable:
     regexp: /^\$(.*):\s(.*)$/
+    scope: null
   property:
     regexp: /^:(.*?)\s(.*)$/
+    scope: false
   extend:
     regexp: /@extends\s(.*)$/
+    scope: false
   mixin:
     regexp: /^=(.*)\((.*)\)$/
+    scope: true
   mix:
     regexp: /^\+(.*)\((.*)\)$/
+    scope: false
   selector:
     regexp: /(.*)/
+    scope: true
 
 end = ->
   if Compressed then "" else "\n"
@@ -59,16 +66,34 @@ class Replacer
     @blocks = []
     @is = []
     @vars = {}
+  
   parse: (text) ->
+    scope = []
     lines = text.trim().split("\n")
     for line in lines
+      ln = lines.indexOf(line)+1
+      indent = line.match(@identRegexp)[1].length or 0
+      if indent % 2 isnt 0
+        console.warn "Error: Wrong indentation on line #{ln}."
+        return false
       if line.length > 0
         for key, val of Grammar 
           if m = line.trim().match val.regexp
-            args = m[1..m.length]
-            args.push(line.match(@identRegexp)[1].length || 0)
+            if indent is 0
+              scope.empty()
+              scope[0] = null
+            switch val.scope
+              when true
+                scope[indent] = null
+              when false
+                if scope[indent-2] is undefined
+                  console.warn "Error: wrong scope on line #{ln}"
+                  return false
+            args = m[1..]
+            args.push indent
             @[key].apply @, args
             break
+    true
   variable: (name,value,indent) ->
     @vars[name] = value
   mixin: (name,args,indent)->
@@ -98,12 +123,12 @@ class Replacer
     sel = new Selector merged, indent
     @blocks[merged] = sel
   compile: (text) ->
-    @parse text
-    m = ""
-    for selector, body of @blocks
-      if typeof body isnt "function"
-        m += body.to_s()
-    m  
+    if @parse text
+      m = ""
+      for selector, body of @blocks
+        if typeof body isnt "function"
+          m += body.to_s()
+      m  
 test = fs.readFileSync 'test.sass', 'utf-8'
 rep = new Replacer
 a = rep.compile(test)   

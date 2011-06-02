@@ -5,7 +5,7 @@ The goal of this repo is to create a Sass like compiler for use within node.js w
 
 ## What works?
 
- *  Property syntax
+ *  Properties
  *  Selector nesting (partially)
  *  Varaiables (partially)
  *  Mixins (whitout variables, no nesting)

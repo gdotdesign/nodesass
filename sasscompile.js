@@ -38,10 +38,8 @@ Selector = (function() {
     this.basename = name;
     this.indent = indent;
     this["extends"] = [];
-    this.cextends = [];
     this.mixins = [];
     this.props = [];
-    this.blocks = [];
   }
   Selector.prototype.extend = function(selector) {
     return this["extends"].push(selector);
@@ -53,12 +51,19 @@ Selector = (function() {
     return m += this.to_p();
   };
   Selector.prototype.to_p = function() {
-    var k, m, v, _ref;
+    var k, m, mixin, v, _i, _len, _ref, _ref2;
     m = "{" + end();
-    _ref = this.props;
-    for (k in _ref) {
-      v = _ref[k];
-      m += k + ": " + v + end();
+    _ref = this.mixins;
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      mixin = _ref[_i];
+      Object.merge(this.props, mixin.block.props);
+    }
+    _ref2 = this.props;
+    for (k in _ref2) {
+      v = _ref2[k];
+      if (typeof v !== "function") {
+        m += k + ": " + v + end();
+      }
     }
     return m += "}" + end();
   };
@@ -85,29 +90,29 @@ Replacer = (function() {
     this.vars = {};
   }
   Replacer.prototype.parse = function(text) {
-    var args, key, line, lines, m, val, _i, _len, _results;
+    var args, indent, key, lastIndent, line, lines, m, val, _i, _len;
     lines = text.trim().split("\n");
-    _results = [];
+    lastIndent = 0;
     for (_i = 0, _len = lines.length; _i < _len; _i++) {
       line = lines[_i];
-      _results.push((function() {
-        var _results;
-        if (line.length > 0) {
-          _results = [];
-          for (key in Grammar) {
-            val = Grammar[key];
-            if (m = line.trim().match(val.regexp)) {
-              args = m.slice(1, (m.length + 1) || 9e9);
-              args.push(line.match(this.identRegexp)[1].length || 0);
-              this[key].apply(this, args);
-              break;
-            }
+      indent = line.match(this.identRegexp)[1].length || 0;
+      if (indent % 2 !== 0) {
+        console.warn("Error: Line " + (lines.indexOf(line)) + " x identation wrong");
+        return false;
+      }
+      if (line.length > 0) {
+        for (key in Grammar) {
+          val = Grammar[key];
+          if (m = line.trim().match(val.regexp)) {
+            args = m.slice(1);
+            args.push(indent);
+            this[key].apply(this, args);
+            break;
           }
-          return _results;
         }
-      }).call(this));
+      }
     }
-    return _results;
+    return true;
   };
   Replacer.prototype.variable = function(name, value, indent) {
     return this.vars[name] = value;
@@ -146,21 +151,21 @@ Replacer = (function() {
     merged += name;
     this.is[indent] = merged;
     sel = new Selector(merged, indent);
-    if (this.is[indent - 2] !== void 0) {
-      this.blocks[this.is[indent - 2]].blocks.push(sel);
-    }
     return this.blocks[merged] = sel;
   };
   Replacer.prototype.compile = function(text) {
     var body, m, selector, _ref;
-    this.parse(text);
-    m = "";
-    _ref = this.blocks;
-    for (selector in _ref) {
-      body = _ref[selector];
-      m += body.to_s();
+    if (this.parse(text)) {
+      m = "";
+      _ref = this.blocks;
+      for (selector in _ref) {
+        body = _ref[selector];
+        if (typeof body !== "function") {
+          m += body.to_s();
+        }
+      }
+      return m;
     }
-    return m;
   };
   return Replacer;
 })();
