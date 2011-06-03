@@ -76,28 +76,7 @@ class Property
     @value = value
   toString: ->
     @name + ": " + @value.toString() + end()
-class Selector 
-  constructor: (name, indent) ->
-    @basename = name
-    @indent = indent
-    @extends = []
-    @mixins = []
-    @props = []
-  extend: (selector) ->
-    @extends.push selector
-  toString: ->
-    x = (if @extends.length > 0 then ", " else "" ) + @extends.join ', '
-    m =  @basename + x 
-    m += @to_p()
-  to_p: ->
-    m = "{" + end()
-    for mixin in @mixins
-      Object.merge @props, mixin.block.props
-    for k,v of @props
-      if typeof v isnt "function"
-        m += v.toString()
-        #m += k + ": " + v + end()
-    m += "}"+end()
+
     
 class Mixin
   constructor: (name, args) ->
@@ -117,49 +96,55 @@ class Replacer
     @blocks = []
     @is = []
     @vars = {}
-    
+    @b = []
     @afterParse = []
   
   parse: (text) ->
     scope = []
     lines = text.trim().split("\n")
-    for line in lines
-      ln = lines.indexOf(line)+1
-      indent = line.match(@identRegexp)[1].length or 0
-      if indent % 2 isnt 0
-        console.warn "Error: Wrong indentation on line #{ln}."
-        return false
-      if line.length > 0
-        for key, val of Grammar 
-          if m = line.trim().match val.regexp
-            if indent is 0
-              scope.empty()
-              scope[0] = null
-            switch val.scope
-              when true
-                scope[indent] = null
-              when false
-                if scope[indent-2] is undefined
-                  console.warn "Error: wrong scope on line #{ln}"
-                  return false
-            args = m[1..]
-            args.push indent
-            args.push @blocks[@is[indent-2]]
-            # TODO all to own functions
-            if val.function?
-              f = val.function
-            else
-              f = @[key]
-            if val.after
-              @afterParse.push {
-                func: f
-                args: args
-              }
-            else 
-              f.apply @, args
-            break
-    for st in @afterParse
-      st.func.apply @, st.args
+    try
+      for line in lines
+        ln = lines.indexOf(line)+1
+        indent = line.match(@identRegexp)[1].length or 0
+        if indent % 2 isnt 0
+          throw "Error: Wrong indentation on line #{ln}."
+        if line.length > 0
+          for key, val of Grammar 
+            if m = line.trim().match val.regexp
+              if indent is 0
+                scope.empty()
+                scope[0] = null
+              switch val.scope
+                when true
+                  scope[indent] = null
+                when false
+                  if scope[indent-2] is undefined
+                    throw "Error: wrong scope on line #{ln}"
+              args = m[1..]
+              args.push indent
+              args.push @b[indent-2]
+              args.push ln
+              # TODO all to own functions
+              if val.function?
+                f = val.function
+              else
+                f = @[key]
+              if val.after
+                @afterParse.push {
+                  func: f
+                  args: args
+                }
+              else 
+                b = f.apply @, args
+              if val.block
+                @b[indent] = b
+                @blocks.push b
+              break
+      for st in @afterParse
+        st.func.apply @, st.args
+    catch e
+      console.warn e
+      return false
     true
   
   # Variable
@@ -168,50 +153,23 @@ class Replacer
   
   # Mixin 
   mixin: (name,args,indent)->
-    @is[indent] = name
-    @blocks[name] = new Mixin name, args
+    new Mixin name, args
     
-  # extend
-  extend: (selector,indent) ->
-    @blocks[selector].extend @is[indent-2]
-    
-  #mixin the mixin
-  mix: (name, args, indent)->
-    @blocks[@is[indent-2]].mixins.push {
-      block: @blocks[name]
-      args: args
-    }
-  
   #property
-  property: (name, value, indent) ->
+  property: (name, value, indent, block, ln) ->
     # replace variables and warn / skip on error
     if value.test /\$\w*/g
       value = value.replace /\$(\w*)/g, =>
         if @vars[arguments[1]] is undefined
-          console.warn "Error no variable named #{arguments[1]}"
-          return false
+          throw "Error no variable named #{arguments[1]} on line #{ln}"
         @vars[arguments[1]]
     # TODO operations at this point
     for k, val of TypeGrammar
       if value.trim().test val.regexp
         value = val.type.from value
         break
-    @blocks[@is[indent-2]].props[name] = new Property name,value
+    block.props[name] = new Property name,value
     
-  # selector
-  selector: (name, indent) ->
-    merged = ""
-    if indent isnt 0
-      if @is[indent-2] isnt undefined
-        merged += @is[indent-2] + " "
-    name = name.replace /#\{\$(.*)\}/, =>
-      @vars[arguments[1]]
-    merged += name
-    
-    @is[indent] = merged
-    sel = new Selector merged, indent
-    @blocks[merged] = sel
-  
   # compile
   compile: (text) ->
     if @parse text
