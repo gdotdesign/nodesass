@@ -5,6 +5,8 @@ coffee = require 'coffee-script'
 require './lib/mootoolsColor'
 sasscompile = exports
 
+Grammar = require './source/grammar'
+
 Compressed = false
 
 class List
@@ -25,25 +27,8 @@ Unit.from = (unit) ->
 Color.from = (type) ->
   new Color(type)
 
-Grammar =
-  variable:
-    regexp: /^\$(.*):\s(.*)$/
-    scope: null
-  property:
-    regexp: /^:(.*?)\s(.*)$/
-    scope: false
-  extend:
-    regexp: /@extends\s(.*)$/
-    scope: false
-  mixin:
-    regexp: /^=(.*)\((.*)\)$/
-    scope: true
-  mix:
-    regexp: /^\+(.*)\((.*)\)$/
-    scope: false
-  selector:
-    regexp: /(.*)/
-    scope: true
+# TODO scopes, functions
+
 
 TypeGrammar =
   hex:
@@ -124,6 +109,7 @@ class Mixin
     
   to_s: ->
     ""
+  toString: -> ""
     
 class Replacer
   constructor: ->
@@ -131,6 +117,8 @@ class Replacer
     @blocks = []
     @is = []
     @vars = {}
+    
+    @afterParse = []
   
   parse: (text) ->
     scope = []
@@ -156,8 +144,22 @@ class Replacer
                   return false
             args = m[1..]
             args.push indent
-            @[key].apply @, args
+            args.push @blocks[@is[indent-2]]
+            # TODO all to own functions
+            if val.function?
+              f = val.function
+            else
+              f = @[key]
+            if val.after
+              @afterParse.push {
+                func: f
+                args: args
+              }
+            else 
+              f.apply @, args
             break
+    for st in @afterParse
+      st.func.apply @, st.args
     true
   
   # Variable

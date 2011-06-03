@@ -10,12 +10,9 @@ $color2: #000
 
 .#{$prefix}-basic
   :color blue
-.basic  
-  +border-radius()
-  :color orange
-  h4
-    :border 1px solid black
+
 body
+  @extends .basic
   +border-radius()
   :background-color $color
   :font-size $asd
@@ -24,3 +21,12 @@ body
     :font-size 30px
     p
       :color white
+
+.basic  
+  +border-radius()
+  :color orange
+  h4
+    :border 1px solid black
+    h6
+      :color white
+
