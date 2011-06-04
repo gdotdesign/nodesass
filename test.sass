@@ -3,6 +3,9 @@ $prefix: blender
 $color: #fff
 $color2: #000
 
+@import test.css
+@import http://fontfile.css
+@import url(sad)
 
 =border-radius()
   :border-radius 20px
@@ -14,7 +17,7 @@ $color2: #000
 body
   @extends .basic
   +border-radius()
-  :background-color $colora
+  :background-color $color
   :font-size $asd
   :color black
   h1
@@ -29,4 +32,6 @@ body
     :border 1px solid black
     h6
       :color white
+      
+@import test2.sass
 

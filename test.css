@@ -1,1 +1,692 @@
-asd{}.blender-basic{color: blue}.basic, body{color: orange}body{background-color: whitefont-size: 20pxcolor: black}body h1{font-size: 30px}body h1 p{color: white}
+@import url(http://fonts.googleapis.com/css?family=Ubuntu:regular,bold,italic);
+.disabled{
+ opacity: 0.4.4;
+}
+.disabled *.disabled{
+   opacity: 1;
+}
+.basicSize, .blender-button-key, .blender-button, .blender-button-toggleSize, .blender-button-key, .blender-button, .blender-button-toggle, .blender-togglerSize, .blender-toggler, .blender-slider, .blender-numberSize, .blender-tableSize, .blender-list-group, .blender-list-groupSize, .blender-time, .blender-date, .blender-date-timeSize, .blender-slotSize, .blender-checkbox, .blender-checkbox .blender-checkbox-signSize, .blender-iconSize, .blender-listSize, .blender-textareaSize, .blender-textarea, .blender-toggle-groupSize, .blender-toggle-group, .blender-unitSize, .blender-selectSize, .blender-select{
+ width: 200px;
+ min-width: 85px;
+ height: 20px;
+ line-height: 20px;
+}
+.basic, .blender-button-key, .blender-button, .blender-button-toggle, .blender-toggler, .blender-slider, .blender-number, .blender-table, .blender-list-group, .blender-time, .blender-date, .blender-date-time, .blender-slot, .blender-checkbox .blender-checkbox-sign, .blender-icon, .blender-list, .blender-textarea, .blender-toggle-group, .blender-unit, .blender-select{
+ border: 1px solid darken($dark,20%);
+ font-size: 12px;
+ margin: 5px;
+ color: #666666;
+ background-color: #3e4d5e;
+ -webkit-user-select: none;
+ -webkit-background-clip: padding-box;
+ -moz-border-radius: 10px;
+ -webkit-border-radius: 10px;
+ -khtml-border-radius: 10px;
+ border-radius: 10px;
+ box-shadow:  0  0  5  #000;
+ -moz-box-shadow:  0  0  5  #000;
+ -webkit-box-shadow:  0  0  5  #000;
+}
+.nobasic, .blender-list-group .blender-list, .blender-time, .blender-date, .blender-date-time .blender-slot, .blender-slot .blender-list, .blender-picker > *:first-child, .blender-toggle-group .blender-button-toggle, .blender-unit .blender-number, .blender-unit .blender-number .blender-number-text, .blender-unit .blender-select, .blender-select .blender-select-add, .blender-select-remove{
+ margin: 0;
+ border: none;
+ -moz-border-radius: 10px;
+ -webkit-border-radius: 10px;
+ -khtml-border-radius: 10px;
+ border-radius: 10px;
+ box-shadow:  0  0  5  #000;
+ -moz-box-shadow:  0  0  5  #000;
+ -webkit-box-shadow:  0  0  5  #000;
+}
+.dark-on-light, .blender-checkbox .blender-checkbox-sign, .blender-select{
+ color: #fdfdfd;
+ background-color: darken($dark,8%);
+}
+.dark-on-light:hover, .blender-checkbox .blender-checkbox-sign:hover, .blender-select:hover{
+   background-color: #3e4d5e;
+}
+.dark-on-light:active, .blender-checkbox .blender-checkbox-sign:active, .blender-select:active{
+   background-color: lighten($dark,25%);
+   color: #212121;
+}
+.light-on-dark, .blender-button-key, .blender-button, .blender-icon{
+ color: #212121;
+ background-color: lighten($dark,25%);
+}
+.light-on-dark:hover, .blender-button-key, .blender-button:hover, .blender-icon:hover{
+   background-color: lighten($light,10%);
+}
+.light-on-dark:active, .blender-button-key, .blender-button:active, .blender-icon:active{
+   background-color: #3e4d5e;
+   color: #fdfdfd;
+}
+.blender-button-key, .blender-button, .blender-button-toggle{
+ overflow: hidden;
+ white-space: nowrap;
+ text-align: center;
+ cursor: pointer;
+}
+.blender-button-key, .blender-button, .blender-button-toggle{
+ overflow: hidden;
+ white-space: nowrap;
+ text-align: center;
+ cursor: pointer;
+}
+.blender-button-key, .blender-button, .blender-button-toggle{
+ overflow: hidden;
+ white-space: nowrap;
+ text-align: center;
+ cursor: pointer;
+}
+.blender-button-toggle{
+ background-color: darken($dark,8%);
+ color: #fdfdfd;
+}
+.blender-button-toggle:hover:not(.pushed){
+   background-color: #3e4d5e;
+}
+.blender-button-toggle.pushed{
+   color: #212121;
+   background-color: #5680c2;
+}
+.blender-toggler{
+ cursor: pointer;
+}
+.blender-toggler{
+ cursor: pointer;
+}
+.blender-toggler{
+ cursor: pointer;
+}
+.blender-toggler{
+ cursor: pointer;
+}
+.blender-toggler .blender-toggler-on, .blender-toggler-off, .blender-toggler-sep{
+   font-size: 12px;
+   text-align: center;
+   width: 200px/2;
+   color: #fdfdfd;
+}
+.blender-toggler .blender-toggler-separator{
+   background-color: lighten($dark,25%);
+   -moz-border-radius: 10px;
+   -webkit-border-radius: 10px;
+   -khtml-border-radius: 10px;
+   border-radius: 10px;
+}
+.blender-button-key.active{
+   background-color: darken($dark,8%);
+   color: #fdfdfd;
+}
+.blender-button-key.active{
+   background-color: darken($dark,8%);
+   color: #fdfdfd;
+}
+.blender-slider{
+ background-color: #3e4d5e;
+}
+.blender-slider.horizontal{
+   width: 200px;
+   min-width: 85px;
+   height: 10px;
+}
+.blender-slider.horizontal{
+   width: 200px;
+   min-width: 85px;
+   height: 10px;
+}
+.blender-slider.vertical{
+   width: 10px;
+   height: 200px;
+   min-height: 85px;
+}
+.blender-slider .blender-slider-progress{
+   background-color: lighten($dark,25%);
+   box-shadow:  0  0  5  #000;
+   -moz-box-shadow:  0  0  5  #000;
+   -webkit-box-shadow:  0  0  5  #000;
+}
+.blender-number{
+ background-color: lighten($dark,25%);
+}
+.blender-number .blender-slider-progress{
+   background-color: transparent;
+}
+.blender-number:hover{
+   background-color: lighten($light,10%);
+}
+.blender-number:active{
+   background-color: lighten($dark,15%);
+}
+.blender-number:after{
+   content: '';
+   z-index: 1;
+   position: absolute;
+   top: 6px;
+   left: 5px;
+}
+.blender-number:before{
+   content: '';
+   z-index: 1;
+   position: absolute;
+   top: 6px;
+   right: 5px;
+}
+.blender-number.horizontal{
+   width: 200px;
+   height: 20px;
+   min-width: 85px;
+}
+.blender-number.vertical{
+   width: 20px;
+   height: 200px;
+   min-height: 85px;
+}
+.blender-slider, .blender-number{
+ cursor: move;
+ overflow: hidden;
+}
+.blender-slider, .blender-number{
+ cursor: move;
+ overflow: hidden;
+}
+.blender-slider, .blender-number .blender-number-text, input{
+   color: #212121;
+   font-size: 12px;
+   text-align: center;
+   line-height: 20px;
+}
+.blender-slider, .blender-number input{
+   -webkit-background-clip: padding-box;
+   background-color: #000000;
+   -moz-border-radius: 10px;
+   -webkit-border-radius: 10px;
+   -khtml-border-radius: 10px;
+   border-radius: 10px;
+}
+.blender-color{
+ width: 200px;
+ min-width: 85px;
+}
+.blender-color .blender-number{
+   border-bottom: none;
+}
+.blender-color .blender-number, .blender-toggle-group{
+   margin: 0;
+   -moz-border-radius: 10px;
+   -webkit-border-radius: 10px;
+   -khtml-border-radius: 10px;
+   border-radius: 10px;
+}
+.blender-color .blender-color-wrapper{
+   position: relative;
+   margin: 10px 0;
+}
+.blender-color .blender-color-xyknob{
+   width: 10px;
+   cursor: crosshair;
+   height: 10px;
+   border: 1px solid rgba(255,255,255,0.8);
+   -moz-border-radius: 10px;
+   -webkit-border-radius: 10px;
+   -khtml-border-radius: 10px;
+   border-radius: 10px;
+   box-shadow:  0  0  5  #000;
+   -moz-box-shadow:  0  0  5  #000;
+   -webkit-box-shadow:  0  0  5  #000;
+}
+.blender-dialog-alert, .blender-dialog-confirm, .blender-dialog-prompt{
+ width: 200px;
+ min-width: 85px;
+}
+.blender-dialog-alert .blender-button{
+   color: #fdfdfd;
+}
+.blender-dialog-alert .blender-button{
+   color: #fdfdfd;
+}
+.blender-dialog-prompt-label, .blender-dialog-alert-label, .blender-dialog-confirm-label{
+ color: #fdfdfd;
+ font-size: 12px;
+}
+.blender-dialog-prompt-label, .blender-dialog-alert-label, .blender-dialog-confirm-label :margin{
+   left: 7px;
+   bottom: 2px;
+   top: 7px;
+}
+.blender-layout{
+ background-color: #555555;
+ position: absolute;
+ top: 0;
+ right: 0;
+ left: 0;
+ bottom: 0;
+}
+.blender-toolbar{
+ background-color: #888888;
+ z-index: 10;
+}
+.blender-view{
+ position: absolute;
+ min-height: 30px;
+ min-width: 30px;
+ top: 0;
+ right: 0;
+ left: 0;
+ bottom: 0;
+ background-color: #727272;
+ border-top: 1px solid #888;
+ overflow: hidden;
+}
+.blender-view .blender-toolbar{
+   position: absolute;
+   height: 30px;
+   right: 0;
+   left: 0;
+   bottom: 0;
+}
+.blender-view .content{
+   width: 100%;
+   height: 100%;
+}
+.blender-view .slider{
+   position: absolute !important;
+   top: 10px;
+   right: 0;
+   z-index: 11;
+}
+.blender-view .topleft{
+   cursor: crosshair;
+   z-index: 99;
+   position: absolute;
+   top: 0;
+   right: 0;
+   width: 0;
+   height: 0;
+}
+.blender-view .topleft :border{
+     top: 7px solid #666;
+     left: 7px solid transparent;
+     right: 7px solid #666;
+     bottom: 7px solid transparent;
+}
+.blender-view .bottomleft{
+   z-index: 99;
+   position: absolute;
+   bottom: 0;
+   left: 0;
+   width: 0;
+   height: 0;
+}
+.blender-view .bottomleft :border{
+     top: 7px solid transparent;
+     left: 7px solid #666;
+     right: 7px solid transparent;
+     bottom: 7px solid #666;
+}
+.blender-table-add, .blender-table-remove{
+ line-height: 15px;
+ text-align: center;
+ font-size: 22px;
+ text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+ color: #fdfdfd;
+}
+.blender-table-add, .blender-table-remove{
+ line-height: 15px;
+ text-align: center;
+ font-size: 22px;
+ text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+ color: #fdfdfd;
+}
+.blender-table{
+ padding: 2px;
+ border-spacing: 1px;
+}
+.blender-table{
+ padding: 2px;
+ border-spacing: 1px;
+}
+.blender-table input{
+   text-align: center;
+   border: 0;
+   margin: 0;
+   padding: 0;
+   line-height: 20px;
+}
+.blender-table td{
+   width: 85px;
+   overflow: hidden;
+   height: 20px;
+   text-align: center;
+   line-height: 20px;
+   background-color: #fdfdfd;
+}
+.blender-table td input{
+     font-family: Ubuntu;
+     font-size: 12px;
+}
+.blender-icon-group .blender-icon{
+   margin: 0;
+}
+.blender-list-group .blender-list:first-child{
+   border: none;
+   -moz-border-radius:  0  0  0  0;
+   -webkit-border-radius:  0  0  0  0;
+   -khtml-border-radius:  0  0  0  0;
+   border-radius:  0  0  0  0;
+}
+.blender-time, .blender-date, .blender-date-time{
+ width: 200px;
+ height: 100px;
+ cursor: pointer;
+}
+.blender-time, .blender-date, .blender-date-time .blender-slot{
+   background-color: transparent;
+   float: left;
+   -moz-border-radius: 10px;
+   -webkit-border-radius: 10px;
+   -khtml-border-radius: 10px;
+   border-radius: 10px;
+}
+.blender-time, .blender-date, .blender-date-time .blender-slot{
+   background-color: transparent;
+   float: left;
+   -moz-border-radius: 10px;
+   -webkit-border-radius: 10px;
+   -khtml-border-radius: 10px;
+   border-radius: 10px;
+}
+.blender-time, .blender-date, .blender-date-time .blender-slot .blender-list{
+     background-color: transparent;
+}
+.blender-slot{
+ height: 100px;
+ width: 200px;
+}
+.blender-slot{
+ height: 100px;
+ width: 200px;
+}
+.blender-slot .blender-list{
+   width: auto;
+   -webkit-transition-duration: 0.3.3s;
+}
+.blender-slot .blender-list .blender-list-item{
+     color: #212121;
+     text-align: center;
+}
+.blender-list-selected{
+ background-color: #5680c2;
+ color: #FDFDFD !important;
+}
+.blender-list-selected{
+ background-color: #5680c2;
+ color: #FDFDFD !important;
+}
+.blender-list-selected :border{
+   top: 1px solid darken($dark,20%);
+   bottom: 1px solid darken($dark,20%);
+}
+.blender-checkbox{
+ font-size: 12px;
+ cursor: pointer;
+ -webkit-user-select: none;
+}
+.blender-checkbox{
+ font-size: 12px;
+ cursor: pointer;
+ -webkit-user-select: none;
+}
+.blender-checkbox.checked{
+   color: #fdfdfd;
+}
+.blender-checkbox.checked .blender-checkbox-sign:before{
+       content: '\00A0\221A';
+}
+.blender-checkbox .blender-checkbox-sign{
+   width: 20px - 7px;
+   height: 20px - 7px;
+   margin: 2px 5px;
+   float: left;
+}
+.blender-checkbox .blender-checkbox-sign:before{
+     content: '';
+     font-weight: bold;
+     font-size: 18px;
+     position: relative;
+     top: -6px;
+     left: -2px;
+     color: #fdfdfd;
+}
+.blender-icon{
+ width: 20px;
+ height: 20px;
+ background-repeat: no-repeat;
+ background-position: center center;
+ cursor: pointer;
+}
+.blender-icon{
+ width: 20px;
+ height: 20px;
+ background-repeat: no-repeat;
+ background-position: center center;
+ cursor: pointer;
+}
+.blender-icon{
+ width: 20px;
+ height: 20px;
+ background-repeat: no-repeat;
+ background-position: center center;
+ cursor: pointer;
+}
+.blender-icon{
+ width: 20px;
+ height: 20px;
+ background-repeat: no-repeat;
+ background-position: center center;
+ cursor: pointer;
+}
+.blender-list-item, .blender-menu-list-item{
+ clear: both;
+ height: 20px;
+ color: #fdfdfd;
+ font-size: 12px;
+ line-height: 20px;
+ cursor: pointer;
+}
+.blender-list-item, .blender-menu-list-item .blender-list-item-title, .blender-menu-list-item-title{
+   margin-left: 5px;
+}
+.blender-list-item, .blender-menu-list-item:hover{
+   background-color: #5680c2;
+   color: #212121;
+}
+.blender-menu-list-item .blender-menu-list-item-title{
+   margin-right: 10px;
+}
+.blender-menu-list-item > div:last-child{
+   margin-right: 5px;
+}
+.blender-menu-list-item-icon{
+ width: 20px;
+ height: 20px;
+ background-repeat: no-repeat;
+ background-position: center center;
+}
+.blender-list{
+ width: 200px;
+}
+.blender-list{
+ width: 200px;
+}
+.blender-textarea{
+ background-color: lighten($dark,25%);
+ color: #212121;
+}
+.blender-textarea{
+ background-color: lighten($dark,25%);
+ color: #212121;
+}
+.blender-textarea{
+ background-color: lighten($dark,25%);
+ color: #212121;
+}
+.blender-textarea{
+ background-color: lighten($dark,25%);
+ color: #212121;
+}
+.blender-textarea textarea{
+   font-size: 12px;
+   font-family: Ubuntu;
+   padding: 0 5px;
+   line-height: 20px;
+   border: none;
+   background-color: transparent;
+   -webkit-user-select: auto;
+   -webkit-background-clip: padding-box;
+   resize: none;
+   display: block;
+   margin: 0;
+}
+.blender-overlay{
+ background-color: #000000;
+}
+.blender-toggle-group .blender-button-toggle:last-child{
+   border-right: none;
+}
+.blender-toggle-group .blender-button-toggle{
+   float: left;
+   -moz-border-radius: 10px;
+   -webkit-border-radius: 10px;
+   -khtml-border-radius: 10px;
+   border-radius: 10px;
+}
+.blender-toggle-group .blender-button-toggle{
+   float: left;
+   -moz-border-radius: 10px;
+   -webkit-border-radius: 10px;
+   -khtml-border-radius: 10px;
+   border-radius: 10px;
+}
+.blender-picker{
+ z-index: 99;
+ padding: 1px;
+ background-color: #000000;
+ box-shadow:  0  0  5  #000;
+ -moz-box-shadow:  0  0  5  #000;
+ -webkit-box-shadow:  0  0  5  #000;
+}
+.blender-unit{
+ width: 200px;
+ min-width: 170px;
+ height: 20px;
+}
+.blender-unit{
+ width: 200px;
+ min-width: 170px;
+ height: 20px;
+}
+.blender-unit .blender-number, .blender-select{
+   float: left;
+   height: 20px;
+}
+.blender-select{
+ min-width: 80px;
+ cursor: pointer;
+ line-height: 21px;
+ color: #fdfdfd;
+}
+.blender-select{
+ min-width: 80px;
+ cursor: pointer;
+ line-height: 21px;
+ color: #fdfdfd;
+}
+.blender-select{
+ min-width: 80px;
+ cursor: pointer;
+ line-height: 21px;
+ color: #fdfdfd;
+}
+.blender-select{
+ min-width: 80px;
+ cursor: pointer;
+ line-height: 21px;
+ color: #fdfdfd;
+}
+.blender-select{
+ min-width: 80px;
+ cursor: pointer;
+ line-height: 21px;
+ color: #fdfdfd;
+}
+.blender-select:active{
+   color: #fdfdfd;
+}
+.blender-select:active{
+   color: #fdfdfd;
+}
+.blender-select:after{
+   content: '';
+   z-index: 1;
+   position: absolute;
+   top: 5px;
+   left: 3px;
+   width: 0;
+   height: 0;
+   border-left: 4px solid transparent;
+   border-right: 4px solid transparent;
+   border-bottom: 4px solid #FDFDFD;
+}
+.blender-select:before{
+   content: '';
+   z-index: 1;
+   position: absolute;
+   bottom: 5px;
+   left: 3px;
+   width: 0;
+   height: 0;
+   border-left: 4px solid transparent;
+   border-right: 4px solid transparent;
+   border-top: 4px solid #FDFDFD;
+}
+.blender-select .blender-select-text{
+   padding-left: 15px;
+   -moz-border-radius: 10px;
+   -webkit-border-radius: 10px;
+   -khtml-border-radius: 10px;
+   border-radius: 10px;
+}
+.blender-select .blender-select-add, .blender-select-remove{
+   line-height: 15px;
+   text-align: center;
+   font-size: 22px;
+   color: #fdfdfd;
+   float: right;
+   width: 20px;
+   height: 20px;
+   border: none;
+   border-left: 1px solid darken($dark,20%);
+}
+.blender-select .blender-select-add, .blender-select-remove{
+   line-height: 15px;
+   text-align: center;
+   font-size: 22px;
+   color: #fdfdfd;
+   float: right;
+   width: 20px;
+   height: 20px;
+   border: none;
+   border-left: 1px solid darken($dark,20%);
+}
+.blender-select .blender-select-add, .blender-select-remove{
+   line-height: 15px;
+   text-align: center;
+   font-size: 22px;
+   color: #fdfdfd;
+   float: right;
+   width: 20px;
+   height: 20px;
+   border: none;
+   border-left: 1px solid darken($dark,20%);
+}

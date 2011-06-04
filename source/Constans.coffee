@@ -1,0 +1,5 @@
+exports.SCOPE =
+  TOPLEVEL: 0
+  INDENTED: 1
+  INBLOCK: 2
+  BLOCK: 3
