@@ -57,6 +57,7 @@ class Replacer
               else
                 f = @[key]
               if val.after
+                b = ''
                 @afterParse.push {
                   func: f
                   args: args

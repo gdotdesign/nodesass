@@ -11,9 +11,14 @@ exports.Selector = class Selector
       l += 1 if typeof item isnt "function"
     return "" unless l > 0
     x = (if @extends.length > 0 then ", " else "" ) + @extends.join ', '
-    m =  @name + x 
-    p = @to_p()
-    m += @to_p()
+    m = ""
+    if @indent == 0
+      m = "\n"
+    if @indent > 0
+      for [0..@indent-1]
+        m += " "
+    m +=  @name + x 
+    m += " "+@to_p()
   to_p: ->
     m = "{\n" 
     for mixin in @mixins
@@ -21,8 +26,9 @@ exports.Selector = class Selector
     for k,v of @props
       if typeof v isnt "function"
         indent = ""
-        for [0..@indent]
+        for [0..@indent+1]
           indent += " "
         m += indent+v.toString()
         #m += k + ": " + v + end()
-    m += "}\n"
+    m = m.trim()
+    m += " }\n"

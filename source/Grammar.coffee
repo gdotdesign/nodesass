@@ -1,6 +1,9 @@
 sys = require 'sys'
 fs = require 'fs'
 require 'mootools'
+
+{Slick} = require '../lib/Slick'
+
 {Selector} = require './classes/Selector'
 {Import} = require './classes/Import'
 {Mixin} = require './classes/Mixin'
@@ -63,10 +66,15 @@ exports.Grammar =
     scope: SCOPE.INBLOCK
     function: (name, indent, b) ->
       currentBlock = b.name
+      name = name.replace /#\{\$(.*?)\}/g, =>
+        @vars[arguments[1]]
+      re = RegExp("^(#{name})(\\S)*(\\s|$)")
       for n, block of @blocks
         if block.name?
-          if block.name.test new RegExp("^#{name}")
-            block.extends.push block.name.replace new RegExp("^#{name}"), currentBlock
+          if block.name.test new RegExp("^(#{name})(\\s|$)")
+            newname = block.name.replace new RegExp("^(#{name})(\\s|$)"), currentBlock
+            if block.extends.indexOf(newname) == -1
+              block.extends.push newname
       false
     after: true
   iteration:
@@ -98,6 +106,7 @@ exports.Grammar =
       name = block.name+name
       name = name.replace /#\{\$(.*?)\}/g, =>
         @vars[arguments[1]]
+      console.log Slick.parse name
       new Selector name, indent
   selector:
     regexp: /(.*)/
