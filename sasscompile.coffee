@@ -1,7 +1,6 @@
 fs = require 'fs'
 sys = require 'sys'
 require 'mootools'
-coffee = require 'coffee-script'
 require './lib/mootoolsColor'
 
 {Grammar} = require './source/Grammar'
@@ -16,7 +15,7 @@ OperationGrammar =
   multiplication:
 ###
 Log = ""
-class Replacer
+exports.Replacer = class Replacer
   constructor: (path) ->
     @identRegexp = /(\s*)/
     @path = path
@@ -32,9 +31,11 @@ class Replacer
     try
       for line in lines
         ln = lines.indexOf(line)+1
+        line = line.replace /\t/, ""
         indent = line.match(@identRegexp)[1].length or 0
         if indent % 2 isnt 0
           throw "Error: Wrong indentation on line #{ln}."
+        line = line.trim()
         if line.length > 0
           for key, val of Grammar 
             m = null
@@ -91,9 +92,13 @@ class Replacer
     if @parse text
       m = ""
       for selector, body of @blocks
-        if typeof body isnt "function"
-          m += body.toString()
-      m  
+        if body.render
+          if typeof body isnt "function"
+            if body.indent is 0
+              m += "\n"
+            m += body.toString()
+      m.trim()+"\n" 
+###
 #test = fs.readFileSync 'test/Blender/theme.sass', 'utf-8'
 test = fs.readFileSync 'test.sass', 'utf-8'
 rep = new Replacer 'test/Blender/'
@@ -106,7 +111,7 @@ if Compressed
 #console.log a
 fs.writeFile 'test.css', a
 #fs.writeFile 'log', Log
-###
+
 fs.watchFile 'test.sass', (curr, prev) ->
   test = fs.readFileSync 'test.sass', 'utf-8'
   rep = new Replacer

@@ -4,15 +4,13 @@ generateSelector = (parsed) ->
     a += if a isnt "" then "," else ""
     for e in exp
       a += e.combinator
-      if e.id
-        a += "##{e.id}"
       if e.tag isnt "*"
         a += e.tag
+      if e.id
+        a += "##{e.id}"
+      if e.classList?
+        a += "."+e.classList.join "."
       else
-        if e.classList?
-          a += "."+e.classList.join "."
-        else if e.id is undefined
-          a += e.tag
       if e.pseudos
         for p in e.pseudos
           a += ":"+p.key
@@ -25,27 +23,30 @@ exports.Selector = class Selector
     @indent = indent
     @extends = []
     @props = []
+    @render = true
   toString: ->
     try
       #x = (if @extends.length > 0 then ", " else "" ) + @extends.join ', '
       m = ""
       if @indent == 0
         m = "\n"
-      if @indent > 0
-        for [0..@indent-1]
-          m += " "
+      #if @indent > 0
+      #  for [0..@indent-1]
+      #    m += " "
       m +=  generateSelector @parsed
       p = @to_p()
       if p is "{ }\n"
         return ""
       m += " "+p
+      m = m.trim()+"\n"
+      m
     catch e    
       console.log e
   to_p: ->
-    m = "{\n" 
+    m = "{ " 
     indent = ""
-    for [0..@indent+1]
-      indent += " "
+    #for [0..@indent+1]
+    #  indent += " "
     Object.each @props, (v,k) ->
       if v.block?
         Object.each v.block.props, (v1,k1) ->

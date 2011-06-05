@@ -1,8 +1,4 @@
+.basic, .size { a: b; }
+.basic:hover, .size:hover { c: d; }
 
-.basic, .size {
-  a: b; }
-  .basic:hover, .size:hover {
-    c: d; }
-
-#he, .size .length {
-  border: none; }
+#he, .size .length { border: none; }

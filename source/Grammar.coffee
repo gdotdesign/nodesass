@@ -166,13 +166,14 @@ exports.Grammar =
       s
   property:
     regexp: [/^:(.*?)\s(.*)$/,/^(.*?):\s(.*)$/]
-    scope: SCOPE.INBLOCK
+    scope: SCOPE.BLOCK
     function: (name, value, indent, block, ln) ->
       # replace variables and warn / skip on error
       if block.vars
         vars1 = Object.merge @vars, block.vars
       else
         vars1 = @vars
+      value = value.trim()
       if value.test /\$\w*/g
         value = value.replace /\$(\w*)/g, =>
           if vars1[arguments[1]] is undefined
@@ -183,9 +184,18 @@ exports.Grammar =
         if value.trim().test val.regexp
           value = val.type.from value
           break
-      block.props.push new Property name,value
-      false
+      p = new Property name,value
+      block.props.push p
+      p
+  nestedProperty:
+    regexp: [/^:(.*?)$/,/^(.*?):$/]
+    scope: SCOPE.BLOCK
+    function: (name, indent,block,ln) ->
+      p = new Property name, null
+      block.props.push p
+      p
   selector:
+    # TODO needs a proper regexp
     regexp: /(.*)/
     scope: SCOPE.BLOCK
     function: (name, indent, block, ln) ->

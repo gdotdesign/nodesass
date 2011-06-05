@@ -7,6 +7,9 @@ Color.from = (type) ->
   new Color(type)
 
 exports.TypeGrammar =
+  number:
+    regexp: /^\d*$/
+    type: Number
   hex:
     regexp: /^#?[0-9A-Fa-f]{3,6}$/
     type: Color
@@ -23,7 +26,7 @@ exports.TypeGrammar =
     regexp: /^hsla\((.*)\)/
     type: Color
   unit:
-    regexp: /^[-\d]?(\d{1,10})(\S*)$/
+    regexp: /^[-\d|\.\d]?(\d{1,10})(\S*)$/
     type: Unit
   url:
     regexp: /^url\([\s\S]*\)$/

@@ -1,8 +1,8 @@
 exports.Unit = class Unit
   constructor: (unit) ->
-    m = unit.match /^[-\d]?(\d{1,10})(\S*)$/
+    m = unit.match  /^((-|\.|\d)?\d*?\.?\d*)(\S*)$/
     @number = Number.from unit
-    @type = m[2]
+    @type = m[3]
   toString: ->
     @number + @type
     
