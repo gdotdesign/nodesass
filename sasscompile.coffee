@@ -15,7 +15,7 @@ OperationGrammar =
   division:
   multiplication:
 ###
-
+Log = ""
 class Replacer
   constructor: (path) ->
     @identRegexp = /(\s*)/
@@ -37,7 +37,17 @@ class Replacer
           throw "Error: Wrong indentation on line #{ln}."
         if line.length > 0
           for key, val of Grammar 
-            if m = line.trim().match val.regexp
+            m = null
+            switch typeOf val.regexp
+              when 'array'
+                for a in val.regexp
+                  if m = line.trim().match a
+                    break
+              when 'regexp'
+                if m is null
+                  m = line.trim().match val.regexp 
+            if m
+              Log += "#{line}, #{key}\n"
               if indent is 0
                 scope.empty()
                 scope[0] = undefined
@@ -73,7 +83,7 @@ class Replacer
           st.func.apply @, st.args
     catch e
       console.warn e
-      return false
+      #return false
     true
     
   # compile
@@ -84,7 +94,8 @@ class Replacer
         if typeof body isnt "function"
           m += body.toString()
       m  
-test = fs.readFileSync 'test/Blender/theme.sass', 'utf-8'
+#test = fs.readFileSync 'test/Blender/theme.sass', 'utf-8'
+test = fs.readFileSync 'test.sass', 'utf-8'
 rep = new Replacer 'test/Blender/'
 a = rep.compile(test)   
 if Compressed
@@ -94,6 +105,7 @@ if Compressed
   a = b
 #console.log a
 fs.writeFile 'test.css', a
+#fs.writeFile 'log', Log
 ###
 fs.watchFile 'test.sass', (curr, prev) ->
   test = fs.readFileSync 'test.sass', 'utf-8'

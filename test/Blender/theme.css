@@ -2,16 +2,16 @@
 
 .disabled {
   opacity: 0.4; }
-  .disabled *.disabled {
+  .disabled .disabled {
     opacity: 1; }
 
-.basicSize, .blender-button-key, .blender-button, .blender-button-toggle, .blender-toggler, .blender-list-group, .blender-checkbox, .blender-textarea, .blender-toggle-group, .blender-select {
+.basicSize, .blender-button-key, .blender-button, .blender-button-toggle, .blender-toggler, .blender-list-group, .blender-checkbox, .blender-textarea, .blender-toggle-group, .blender-select .asd {
   width: 200px;
   min-width: 85px;
   height: 20px;
   line-height: 20px; }
 
-.basic, .blender-button-key, .blender-button, .blender-button-toggle, .blender-toggler, .blender-slider, .blender-number, .blender-table, .blender-list-group, .blender-time, .blender-date, .blender-date-time, .blender-slot, .blender-checkbox .blender-checkbox-sign, .blender-icon, .blender-table-add, .blender-table-remove, .blender-select .blender-select-add, .blender-select .blender-select-remove, .blender-list, .blender-textarea, .blender-toggle-group, .blender-unit, .blender-select {
+.basic, .blender-button-key, .blender-button, .blender-button-toggle, .blender-toggler, .blender-slider, .blender-number, .blender-table, .blender-list-group, .blender-time, .blender-date, .blender-date-time, .blender-slot, .blender-checkbox .blender-checkbox-sign, .blender-icon, .blender-table-add, .blender-table-remove, .blender-list, .blender-textarea, .blender-toggle-group, .blender-unit, .blender-select .asd, .blender-select .asd .blender-select-add, .blender-select .asd .blender-select-remove {
   border: 1px solid #151b21;
   font-size: 12px;
   margin: 5px;
@@ -27,7 +27,7 @@
   -webkit-user-select: none;
   -webkit-background-clip: padding-box; }
 
-.nobasic, .blender-list-group .blender-list, .blender-time .blender-slot, .blender-date .blender-slot, .blender-date-time .blender-slot, .blender-slot .blender-list, .blender-picker > *:first-child, .blender-toggle-group .blender-button-toggle, .blender-unit .blender-number, .blender-unit .blender-number .blender-number-text, .blender-unit .blender-select, .blender-select .blender-select-add, .blender-select .blender-select-remove {
+.nobasic, .blender-list-group .blender-list, .blender-time .blender-slot, .blender-date .blender-slot, .blender-date-time .blender-slot, .blender-slot .blender-list, .blender-picker > *:first-child, .blender-toggle-group .blender-button-toggle, .blender-unit .blender-number, .blender-unit .blender-number .blender-number-text, .blender-unit .blender-select, .blender-select .asd .blender-select-add, .blender-select .asd .blender-select-remove {
   margin: 0;
   border: none;
   -moz-border-radius: 0;
@@ -38,21 +38,21 @@
   -moz-box-shadow: 0 0 0 transparent;
   -webkit-box-shadow: 0 0 0 transparent; }
 
-.dark-on-light, .blender-checkbox .blender-checkbox-sign, .blender-select {
+.dark-on-light, .blender-checkbox .blender-checkbox-sign, .blender-select .asd {
   color: #fdfdfd;
   background-color: #2e3945; }
-  .dark-on-light:hover, .blender-checkbox .blender-checkbox-sign:hover, .blender-select:hover {
+  .dark-on-light:hover, .blender-checkbox .blender-checkbox-sign:hover, .blender-select .asd:hover {
     background-color: #3e4d5e; }
-  .dark-on-light:active, .blender-checkbox .blender-checkbox-sign:active, .blender-select:active {
+  .dark-on-light:active, .blender-checkbox .blender-checkbox-sign:active, .blender-select .asd:active {
     background-color: #778ca5;
     color: #212121; }
 
-.light-on-dark, .blender-button-key, .blender-button, .blender-icon, .blender-table-add, .blender-table-remove, .blender-select .blender-select-add, .blender-select .blender-select-remove {
+.light-on-dark, .blender-button-key, .blender-button, .blender-icon, .blender-table-add, .blender-table-remove, .blender-select .asd .blender-select-add, .blender-select .asd .blender-select-remove {
   color: #212121;
   background-color: #778ca5; }
-  .light-on-dark:hover, .blender-button-key:hover, .blender-button:hover, .blender-icon:hover, .blender-table-add:hover, .blender-table-remove:hover, .blender-select .blender-select-add:hover, .blender-select .blender-select-remove:hover {
+  .light-on-dark:hover, .blender-button-key:hover, .blender-button:hover, .blender-icon:hover, .blender-table-add:hover, .blender-table-remove:hover, .blender-select .asd .blender-select-add:hover, .blender-select .asd .blender-select-remove:hover {
     background-color: #95a6b9; }
-  .light-on-dark:active, .blender-button-key:active, .blender-button:active, .blender-icon:active, .blender-table-add:active, .blender-table-remove:active, .blender-select .blender-select-add:active, .blender-select .blender-select-remove:active {
+  .light-on-dark:active, .blender-button-key:active, .blender-button:active, .blender-icon:active, .blender-table-add:active, .blender-table-remove:active, .blender-select .asd .blender-select-add:active, .blender-select .asd .blender-select-remove:active {
     background-color: #3e4d5e;
     color: #fdfdfd; }
 
@@ -76,11 +76,11 @@
   background-image: -moz-linear-gradient(100% 100% 90deg, #af4113, #943710);
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#943710), to(#af4113)); }
 
-.light-gradient, .blender-button, .blender-toggler .blender-toggler-separator, .blender-slider.horizontal .blender-slider-progress, .blender-icon, .blender-table-add, .blender-table-remove, .blender-select .blender-select-add, .blender-select .blender-select-remove {
+.light-gradient, .blender-button, .blender-toggler .blender-toggler-separator, .blender-slider.horizontal .blender-slider-progress, .blender-icon, .blender-table-add, .blender-table-remove, .blender-select .asd .blender-select-add, .blender-select .asd .blender-select-remove {
   background-image: -moz-linear-gradient(100% 100% 90deg, #778ca5, #95a6b9);
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#95a6b9), to(#778ca5)); }
 
-.lighter-gradient, .blender-button:hover, .blender-icon:hover, .blender-table-add:hover, .blender-table-remove:hover, .blender-select .blender-select-add:hover, .blender-select .blender-select-remove:hover {
+.lighter-gradient, .blender-button:hover, .blender-icon:hover, .blender-table-add:hover, .blender-table-remove:hover, .blender-select .asd .blender-select-add:hover, .blender-select .asd .blender-select-remove:hover {
   background-image: -moz-linear-gradient(100% 100% 90deg, #8094ab, #9eaebf);
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#9eaebf), to(#8094ab)); }
 
@@ -100,15 +100,15 @@
   background-image: -moz-linear-gradient(100% 100% 90deg, #627a95, #566b83);
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#566b83), to(#627a95)); }
 
-.darker-gradient, .blender-button-toggle, .blender-toggler, .blender-icon:active, .blender-table-add:active, .blender-table-remove:active, .blender-select .blender-select-add:active, .blender-select .blender-select-remove:active, .blender-select {
+.darker-gradient, .blender-button-toggle, .blender-toggler, .blender-icon:active, .blender-table-add:active, .blender-table-remove:active, .blender-select .asd .blender-select-add:active, .blender-select .asd .blender-select-remove:active, .blender-select .asd {
   background-image: -moz-linear-gradient(100% 100% 90deg, #2e3945, #3e4d5e);
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#3e4d5e), to(#2e3945)); }
 
-.dark-gradient, .blender-button-toggle:hover:not(.pushed), .blender-select:hover {
+.dark-gradient, .blender-button-toggle:hover:not(.pushed), .blender-select .asd:hover {
   background-image: -moz-linear-gradient(100% 100% 90deg, #384555, #485a6d);
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#485a6d), to(#384555)); }
 
-.darker-igradient, .blender-button:active, .blender-button-key.active, .blender-slider.horizontal, .blender-select:active {
+.darker-igradient, .blender-button:active, .blender-button-key.active, .blender-slider.horizontal, .blender-select .asd:active {
   background-image: -moz-linear-gradient(100% 100% 90deg, #3e4d5e, #2e3945);
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#2e3945), to(#3e4d5e)); }
 
@@ -375,7 +375,7 @@
       font-family: Ubuntu;
       font-size: 12px; }
 
-.blender-icon-group .blender-icon, .blender-icon-group .blender-table-add, .blender-icon-group .blender-table-remove, .blender-icon-group .blender-select .blender-select-add, .blender-select .blender-icon-group .blender-select-add, .blender-icon-group .blender-select .blender-select-remove, .blender-select .blender-icon-group .blender-select-remove {
+.blender-icon-group .blender-icon, .blender-icon-group .blender-table-add, .blender-icon-group .blender-table-remove, .blender-icon-group .blender-select .asd .blender-select-add, .blender-select .asd .blender-icon-group .blender-select-add, .blender-icon-group .blender-select .asd .blender-select-remove, .blender-select .asd .blender-icon-group .blender-select-remove {
   margin: 0; }
 
 .blender-list-group .blender-list:first-child {
@@ -442,7 +442,7 @@
       left: -2px;
       color: #fdfdfd; }
 
-.blender-icon, .blender-table-add, .blender-table-remove, .blender-select .blender-select-add, .blender-select .blender-select-remove {
+.blender-icon, .blender-table-add, .blender-table-remove, .blender-select .asd .blender-select-add, .blender-select .asd .blender-select-remove {
   width: 20px;
   height: 20px;
   background-repeat: no-repeat;
@@ -554,14 +554,16 @@
       -khtml-border-radius: 0 3px 3px 0;
       border-radius: 0 3px 3px 0; }
 
-.blender-select {
+.blender-select .asd {
   min-width: 80px;
   cursor: pointer;
   line-height: 21px;
   color: #fdfdfd; }
-  .blender-select:active {
+  .blender-select .asd.something {
+    a: b; }
+  .blender-select .asd:active {
     color: #fdfdfd; }
-  .blender-select:after {
+  .blender-select .asd:after {
     content: "";
     z-index: 1;
     position: absolute;
@@ -572,7 +574,7 @@
     border-left: 4px solid transparent;
     border-right: 4px solid transparent;
     border-bottom: 4px solid #fdfdfd; }
-  .blender-select:before {
+  .blender-select .asd:before {
     content: "";
     z-index: 1;
     position: absolute;
@@ -583,13 +585,13 @@
     border-left: 4px solid transparent;
     border-right: 4px solid transparent;
     border-top: 4px solid #fdfdfd; }
-  .blender-select .blender-select-text {
+  .blender-select .asd .blender-select-text {
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     -khtml-border-radius: 3px;
     border-radius: 3px;
     padding-left: 15px; }
-  .blender-select .blender-select-add, .blender-select .blender-select-remove {
+  .blender-select .asd .blender-select-add, .blender-select .asd .blender-select-remove {
     line-height: 15px;
     text-align: center;
     font-size: 22px;
@@ -599,7 +601,7 @@
     height: 20px;
     border: none;
     border-left: 1px solid #151b21; }
-    .blender-select .blender-select-add.blender-select-remove, .blender-select .blender-select-remove.blender-select-remove {
+    .blender-select .asd .blender-select-add.blender-select-remove, .blender-select .asd .blender-select-remove.blender-select-remove {
       -moz-border-radius: 0 3px 3px 0;
       -webkit-border-radius: 0 3px 3px 0;
       -khtml-border-radius: 0 3px 3px 0;

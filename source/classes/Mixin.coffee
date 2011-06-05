@@ -8,8 +8,8 @@ exports.Mixin = class Mixin
     @name = name
     @args = args
     @props = []
-  to_b: (args) ->
-    
+  toProperties: (args) ->
+      
   to_s: ->
     ""
   toString: -> ""

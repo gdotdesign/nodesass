@@ -1,5 +1,0 @@
-#!/usr/bin/env node
-scomp = require('./sasscompile')
-
-console.log(scomp.Replacer)
-

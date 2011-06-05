@@ -1,37 +1,11 @@
-$asd: 20px
-$prefix: blender
-$color: #fff
-$color2: #000
-
-@import test.css
-@import http://fontfile.css
-@import url(sad)
-
-=border-radius()
-  :border-radius 20px
-  :-webkit-border-radius 20px
-
-.#{$prefix}-basic
-  :color blue
-
-body
-  @extends .basic
-  +border-radius()
-  :background-color $color
-  :font-size $asd
-  :color black
-  h1
-    :font-size 30px
-    p
-      :color white
-
-.basic  
-  +border-radius()
-  :color orange
-  h4
-    :border 1px solid black
-    h6
-      :color white
-      
-@import test2.sass
-
+.basic
+  :a b
+  &:hover
+    :c d
+#he
+  border: none
+.size
+  @extend .basic
+  .length
+    @extend #he
+  
