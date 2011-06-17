@@ -7,9 +7,10 @@ The goal of this repo is to create a Sass like Stylesheet compiler for use withi
 ## What works?
 
  *  Properties
- *  Selector nesting (partially)
+ *  Selector nesting 
  *  Varaiables (partially)
  *  Mixins (whitout variables, no nesting)
+ *  Nested Properties
  *  @extend (partially)
  *  @import (everything except rules with media queries)
  *  Referencing parent selectors
@@ -18,7 +19,6 @@ The goal of this repo is to create a Sass like Stylesheet compiler for use withi
 ## What isn't?
   
  *  @media
- *  Nested Properties
  *  Lists
  *  Operations
  *  Control Directives
@@ -35,12 +35,15 @@ The goal of this repo is to create a Sass like Stylesheet compiler for use withi
 
  *  mootools (server side)
  *  coffee-script
+ *  mootools-slick-parser 
  
 ### Test cases
  
 This repo need some good test cases to compare with Sass compiled CSS. Tesing will include specs and automatic comparisson between this and Sass.
 
 Current test cases:
+
+#### Sass tests from github repo: [Templates](https://github.com/nex3/sass/tree/master/test/sass/templates), [Results](https://github.com/nex3/sass/tree/master/test/sass/results)
 
 #### Theme stylsheets for [Lattice](https://github.com/gdotdesign/Lattice/tree/master/Themes/Blender): 
  

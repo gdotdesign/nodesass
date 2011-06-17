@@ -19,13 +19,17 @@ exports.Replacer = class Replacer
   constructor: (path) ->
     @identRegexp = /(\s*)/
     @path = path
+  
+  
+  getFirstOutdent: (indent)->
+    for i in [indent-1..0]
+      if @b[i] isnt undefined
+        return @b[i]
+  parse: (text, full) ->
     @blocks = []
-    @is = []
     @vars = {}
     @b = []
     @afterParse = []
-  
-  parse: (text, full) ->
     scope = []
     lines = text.trim().split("\n")
     try
@@ -37,6 +41,11 @@ exports.Replacer = class Replacer
           throw "Error: Wrong indentation on line #{ln}."
         line = line.trim()
         if line.length > 0
+          fo = @getFirstOutdent indent
+          if fo?
+            if fo.comment?
+              fo.lines.push line
+              continue
           for key, val of Grammar 
             m = null
             switch typeOf val.regexp

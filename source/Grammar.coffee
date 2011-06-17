@@ -1,8 +1,7 @@
 sys = require 'sys'
 fs = require 'fs'
 require 'mootools'
-
-{Slick} = require '../lib/Slick'
+{Slick} = require 'mootools-slick-parser'
 
 {Selector} = require './classes/Selector'
 {Import} = require './classes/Import'
@@ -60,11 +59,29 @@ compareSubExp = (c,d) ->
     else
       return true
   false
+  
+class MComment
+  constructor: ->
+    @comment = true
+    @lines = []
+  toString: ->
+    m = "/*"
+    for line in @lines
+      m += " "+line.trim() 
+    m + " */ "
 exports.Grammar = 
   comment: 
     regexp: /^\/\/(.*)$/
     scope: SCOPE.INDENTED
     function: -> false
+  multiline:
+    regexp: /\/\*(.*)$/
+    scope: SCOPE.BLOCK
+    function: (line,indent,block,ln) -> 
+      mc = new MComment()
+      mc.lines.push line
+      block.props.push mc
+      mc
   variable:
     regexp: /^\$(.*):\s(.*)$/
     scope: SCOPE.INDENTED
@@ -195,7 +212,7 @@ exports.Grammar =
       block.props.push p
       p
   selector:
-    # TODO needs a proper regexp
+    # TODO needs a proper regexp for
     regexp: /(.*)/
     scope: SCOPE.BLOCK
     function: (name, indent, block, ln) ->
